@@ -29,7 +29,7 @@ namespace ShopAPI.Controllers
             {
                 return BadRequest("User with same email already exist");
             }
-            if ((user.Name != "") || (user.Password != "") || (user.Email != ""))
+            if ((user.Name.Trim() != "") && (user.Email.Trim() != "") && (user.Password.Trim() != ""))
             {
                 var userobj = new User
                 {
