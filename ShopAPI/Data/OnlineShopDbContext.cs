@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShopAPI.Model;
 
-namespace ShopAPI.NewFolder
+namespace ShopAPI.Data
 {
     public class OnlineShopDbContext : DbContext
     {
