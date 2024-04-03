@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using ShopAPI.NewFolder;
 
 namespace ShopAPI.Controllers
 {
@@ -7,5 +7,18 @@ namespace ShopAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private OnlineShopDbContext _dbContext;
+        public UsersController(OnlineShopDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        //[HttpPost]
+        //public IActionResult Register([FromBody] User user)
+        //{
+
+        //}
+
+
     }
 }
