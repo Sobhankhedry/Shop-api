@@ -48,6 +48,7 @@ namespace ShopAPI.Controllers
             }
         }
 
+
         [HttpPost]
         public IActionResult Login([FromBody] User user)
         {
@@ -76,6 +77,10 @@ namespace ShopAPI.Controllers
                 expiration_Time = token.ValidTo,
                 user_Id = userEmail.Id
             });
+        }
+        public IActionResult Remove()
+        {
+            return StatusCode(StatusCodes.Status200OK);
         }
 
 
