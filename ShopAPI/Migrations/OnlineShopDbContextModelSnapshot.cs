@@ -109,7 +109,7 @@ namespace ShopAPI.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Role")
+                    b.Property<string>("Roles")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

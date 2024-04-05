@@ -21,6 +21,7 @@ namespace ShopAPI.Controllers
             _auth = new AuthService(_configuration);
         }
 
+
         [HttpPost]
         public IActionResult Register([FromBody] User user)
         {
@@ -36,7 +37,7 @@ namespace ShopAPI.Controllers
                     Name = user.Name,
                     Email = user.Email,
                     Password = SecurePasswordHasherHelper.Hash(user.Password),
-                    Role = "User"
+                    Roles = "User"
                 };
                 _dbContext.Users.Add(userobj);
                 _dbContext.SaveChanges();
@@ -65,7 +66,7 @@ namespace ShopAPI.Controllers
             {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, userEmail.Role),
+                new Claim(ClaimTypes.Role , user.Roles),
             };
             var token = _auth.GenerateAccessToken(claims);
             return new ObjectResult(new
@@ -78,10 +79,7 @@ namespace ShopAPI.Controllers
                 user_Id = userEmail.Id
             });
         }
-        public IActionResult Remove()
-        {
-            return StatusCode(StatusCodes.Status200OK);
-        }
+
 
 
     }
