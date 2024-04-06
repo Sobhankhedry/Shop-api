@@ -19,6 +19,7 @@ namespace ShopAPI.Controllers
             _dbContext = dbContext;
             _configuration = configuration;
             _auth = new AuthService(_configuration);
+
         }
 
 
@@ -66,7 +67,7 @@ namespace ShopAPI.Controllers
             {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, userEmail.Role)
+                new Claim(ClaimTypes.Role, userEmail.Role),
             };
             var token = _auth.GenerateAccessToken(claims);
             return new ObjectResult(new
@@ -76,7 +77,6 @@ namespace ShopAPI.Controllers
                 token_type = token.TokenType,
                 creation_Time = token.ValidFrom,
                 expiration_Time = token.ValidTo,
-                user_Id = userEmail.Id
             });
         }
 
