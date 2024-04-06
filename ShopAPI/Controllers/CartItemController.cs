@@ -5,7 +5,7 @@ using ShopAPI.Model;
 
 namespace ShopAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CartItemController : ControllerBase
     {

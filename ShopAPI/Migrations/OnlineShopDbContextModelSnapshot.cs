@@ -49,7 +49,7 @@ namespace ShopAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CartId")
+                    b.Property<int>("CartId")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -121,7 +121,9 @@ namespace ShopAPI.Migrations
                 {
                     b.HasOne("ShopAPI.Model.Cart", null)
                         .WithMany("Items")
-                        .HasForeignKey("CartId");
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ShopAPI.Model.Product", b =>
