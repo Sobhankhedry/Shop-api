@@ -51,6 +51,7 @@ namespace ShopAPI.Controllers
             return Ok(products);
         }
 
+
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
