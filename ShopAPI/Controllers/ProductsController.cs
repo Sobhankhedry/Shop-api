@@ -51,6 +51,23 @@ namespace ShopAPI.Controllers
             return Ok(products);
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var del = _dbContext.Products.Find(id);
+            if (del == null)
+            {
+                return NotFound("not fond");
+            }
+            else
+            {
+                _dbContext.Products.Remove(del);
+                _dbContext.SaveChanges();
+                return Ok("record has been deleted");
+            }
+        }
+
 
     }
 }
