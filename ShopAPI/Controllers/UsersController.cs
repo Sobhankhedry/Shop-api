@@ -37,7 +37,7 @@ namespace ShopAPI.Controllers
                     Name = user.Name,
                     Email = user.Email,
                     Password = SecurePasswordHasherHelper.Hash(user.Password),
-                    Roles = "User"
+                    Role = "Users"
                 };
                 _dbContext.Users.Add(userobj);
                 _dbContext.SaveChanges();
@@ -66,7 +66,7 @@ namespace ShopAPI.Controllers
             {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role , user.Roles),
+                new Claim(ClaimTypes.Role, userEmail.Role)
             };
             var token = _auth.GenerateAccessToken(claims);
             return new ObjectResult(new
@@ -79,7 +79,6 @@ namespace ShopAPI.Controllers
                 user_Id = userEmail.Id
             });
         }
-
 
 
     }

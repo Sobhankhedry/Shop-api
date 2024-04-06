@@ -7,7 +7,6 @@ namespace ShopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
     public class ProductsController : ControllerBase
     {
         private OnlineShopDbContext _dbContext;
@@ -16,7 +15,7 @@ namespace ShopAPI.Controllers
             _dbContext = dbContext;
         }
 
-        [Authorize(Roles = ("Admin"))]
+        [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
         public IActionResult RegisterProduct([FromBody] Product product)
         {
@@ -37,6 +36,14 @@ namespace ShopAPI.Controllers
                 return StatusCode(StatusCodes.Status201Created);
             }
         }
+
+        [Authorize]
+        [HttpGet("[action]")]
+        public IActionResult Hello()
+        {
+            return Ok("eveerything is fine");
+        }
+
 
     }
 }
