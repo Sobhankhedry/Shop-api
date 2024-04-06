@@ -15,7 +15,7 @@ namespace ShopAPI.Controllers
             _dbContext = dbContext;
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
         public IActionResult RegisterProduct([FromBody] Product product)
         {
