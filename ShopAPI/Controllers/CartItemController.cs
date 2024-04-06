@@ -19,10 +19,15 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public IActionResult AddingToCartItem([FromBody] CartItem cartItem)
         {
+            //adding to CartItem
             var productId = _dbContext.Products.Find(cartItem.ProductId);
             var price = productId.price * cartItem.Quantity;
             cartItem.Price = price;
             _dbContext.CartItems.Add(cartItem);
+
+            //adding to Cart
+            //_dbContext.CartItems
+
             _dbContext.SaveChanges();
             return Created();
         }
