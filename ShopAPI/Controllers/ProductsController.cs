@@ -5,7 +5,7 @@ using ShopAPI.Model;
 
 namespace ShopAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -16,7 +16,7 @@ namespace ShopAPI.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost("[action]")]
+        [HttpPost]
         public IActionResult RegisterProduct([FromBody] Product product)
         {
             var productWithSameName = _dbContext.Products.Where(u => u.Name == product.Name).SingleOrDefault();
@@ -38,10 +38,17 @@ namespace ShopAPI.Controllers
         }
 
         [Authorize]
-        [HttpGet("[action]")]
-        public IActionResult Hello()
+        [HttpGet]
+        public IActionResult AllProducts()
         {
-            return Ok("eveerything is fine");
+            var products = from product in _dbContext.Products
+                           select new
+                           {
+                               Id = product.Id,
+                               Name = product.Name,
+                               Price = product.price
+                           };
+            return Ok(products);
         }
 
 
