@@ -68,6 +68,25 @@ namespace ShopAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpPut("{id}")]
+        public IActionResult Update([FromBody] Product product, int id)
+        {
+            var up = _dbContext.Products.Find(id);
+            if (up == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                up.Name = product.Name;
+                up.price = product.price;
+                _dbContext.SaveChanges();
+                return Ok("Updated");
+            }
+
+        }
+
 
     }
 }
