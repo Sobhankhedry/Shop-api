@@ -78,6 +78,10 @@ namespace ShopAPI.Controllers
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, userEmail.Role),
             };
+            var retId = userEmail.Id;
+            var founded = _dbContext.carts.FirstOrDefault(u => u.UserId == userEmail.Id);
+            var cartId = founded.Id;
+
             var token = _auth.GenerateAccessToken(claims);
             return new ObjectResult(new
             {
@@ -86,6 +90,7 @@ namespace ShopAPI.Controllers
                 token_type = token.TokenType,
                 creation_Time = token.ValidFrom,
                 expiration_Time = token.ValidTo,
+                Your_Cart_ID = cartId
             });
         }
 
