@@ -26,9 +26,12 @@ namespace ShopAPI.Controllers
                         {
                             userID = user.Id,
                             productId = cartitem.ProductId,
+                            quantity = cartitem.Quantity,
                             productPrice = cartitem.Price,
 
-                        }).FirstOrDefault();
+
+                        });
+
             return Ok(Cart);
         }
     }

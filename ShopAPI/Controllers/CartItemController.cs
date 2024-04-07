@@ -28,15 +28,18 @@ namespace ShopAPI.Controllers
         }
 
 
-        //[Authorize]
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(int id) 
-        //{
-        //    var product = _dbContext.CartItems.Find(id);
-        //    if(product == null) 
-        //    {
-        //        return NotFound();
-        //    }
-        //}
+        [Authorize]
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var cartItem = _dbContext.CartItems.Find(id);
+            if (cartItem == null)
+            {
+                return NotFound();
+            }
+            _dbContext.Remove(cartItem);
+            _dbContext.SaveChanges();
+            return Ok();
+        }
     }
 }
