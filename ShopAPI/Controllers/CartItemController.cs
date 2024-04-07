@@ -26,5 +26,17 @@ namespace ShopAPI.Controllers
             _dbContext.SaveChanges();
             return Ok("Added");
         }
+
+
+        //[Authorize]
+        //[HttpDelete("{id}")]
+        //public IActionResult Delete(int id) 
+        //{
+        //    var product = _dbContext.CartItems.Find(id);
+        //    if(product == null) 
+        //    {
+        //        return NotFound();
+        //    }
+        //}
     }
 }

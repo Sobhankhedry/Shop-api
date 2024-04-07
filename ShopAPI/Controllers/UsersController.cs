@@ -78,8 +78,12 @@ namespace ShopAPI.Controllers
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, userEmail.Role),
             };
-            var retId = userEmail.Id;
+
             var founded = _dbContext.carts.FirstOrDefault(u => u.UserId == userEmail.Id);
+            if (founded == null)
+            {
+                return NotFound();
+            }
             var cartId = founded.Id;
 
             var token = _auth.GenerateAccessToken(claims);
