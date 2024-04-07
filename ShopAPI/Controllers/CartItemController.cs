@@ -22,8 +22,9 @@ namespace ShopAPI.Controllers
             var product = _dbContext.Products.Find(cartItem.ProductId);
             var price = cartItem.Quantity * product.price;
             cartItem.Price = price;
-
-            return Created();
+            _dbContext.CartItems.Add(cartItem);
+            _dbContext.SaveChanges();
+            return Ok("Added");
         }
     }
 }
