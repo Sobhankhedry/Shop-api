@@ -25,6 +25,7 @@ namespace ShopAPI.Controllers
                         select new
                         {
                             userID = user.Id,
+                            cartitemID = cartitem.Id,
                             productId = cartitem.ProductId,
                             quantity = cartitem.Quantity,
                             productPrice = cartitem.Price,
