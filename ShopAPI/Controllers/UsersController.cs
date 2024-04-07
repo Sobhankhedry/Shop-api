@@ -40,12 +40,16 @@ namespace ShopAPI.Controllers
                     Password = SecurePasswordHasherHelper.Hash(user.Password),
                     Role = "Users"
                 };
+
+
+                _dbContext.Users.Add(userobj);
+                _dbContext.SaveChanges();
+
                 var cartObj = new Cart
                 {
-                    UserId = user.Id,
+                    UserId = userobj.Id,
                 };
                 _dbContext.carts.Add(cartObj);
-                _dbContext.Users.Add(userobj);
                 _dbContext.SaveChanges();
                 return StatusCode(StatusCodes.Status201Created, "created");
             }
