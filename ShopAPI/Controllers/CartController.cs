@@ -19,9 +19,11 @@ namespace ShopAPI.Controllers
         [HttpGet]
         public IActionResult GetCartItem()
         {
+
             var Cart = (from cart in _dbContext.carts
                         join cartitem in _dbContext.CartItems on cart.Id equals cartitem.CartId
                         join user in _dbContext.Users on cart.UserId equals user.Id
+                        where cartitem.CartId == cart.Id
                         select new
                         {
                             userID = user.Id,
@@ -31,7 +33,7 @@ namespace ShopAPI.Controllers
                             productPrice = cartitem.Price,
 
 
-                        });
+                        }); ;
 
             return Ok(Cart);
         }

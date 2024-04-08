@@ -20,9 +20,12 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public IActionResult AddingToCartItem([FromBody] CartItem cartItem)
         {
+            var getid = Convert.ToInt32(HttpContext.User.FindFirstValue("UserId"));
+            var foundedUser = _dbContext.carts.FirstOrDefault(x => x.UserId == getid);
             var product = _dbContext.Products.Find(cartItem.ProductId);
             var price = cartItem.Quantity * product.price;
             cartItem.Price = price;
+            cartItem.CartId = foundedUser.Id;
             _dbContext.CartItems.Add(cartItem);
             _dbContext.SaveChanges();
             return Ok("Added");
@@ -44,12 +47,6 @@ namespace ShopAPI.Controllers
         }
 
 
-        [HttpGet, Authorize]
-        public IActionResult GetUserId()
-        {
-            var getid = HttpContext.User.FindFirstValue("UserId");
-            return Ok(getid);
 
-        }
     }
 }
