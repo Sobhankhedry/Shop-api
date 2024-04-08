@@ -77,6 +77,7 @@ namespace ShopAPI.Controllers
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, userEmail.Role),
+                //new Claim(ClaimTypes.)
             };
 
             var founded = _dbContext.carts.FirstOrDefault(u => u.UserId == userEmail.Id);
