@@ -31,7 +31,7 @@ namespace ShopAPI.Controllers
             {
                 return BadRequest("User with same email already exist");
             }
-            if ((user.Name.Trim() != "") && (user.Email.Trim() != "") && (user.Password.Trim() != ""))
+            if ((user.Name?.Trim() != "") && (user.Email?.Trim() != "") && (user.Password?.Trim() != ""))
             {
                 var userobj = new User
                 {
@@ -45,12 +45,7 @@ namespace ShopAPI.Controllers
                 _dbContext.Users.Add(userobj);
                 _dbContext.SaveChanges();
 
-                var cartObj = new Cart
-                {
-                    UserId = userobj.Id,
-                };
-                _dbContext.carts.Add(cartObj);
-                _dbContext.SaveChanges();
+
                 return StatusCode(StatusCodes.Status201Created, "created");
             }
             else
@@ -74,18 +69,12 @@ namespace ShopAPI.Controllers
             }
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Email, user?.Email),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, userEmail.Role),
-                //new Claim(ClaimTypes.)
             };
 
-            var founded = _dbContext.carts.FirstOrDefault(u => u.UserId == userEmail.Id);
-            if (founded == null)
-            {
-                return NotFound();
-            }
-            var cartId = founded.Id;
+            HasCart(userEmail.Id);
 
             var token = _auth.GenerateAccessToken(claims);
             return new ObjectResult(new
@@ -95,10 +84,33 @@ namespace ShopAPI.Controllers
                 token_type = token.TokenType,
                 creation_Time = token.ValidFrom,
                 expiration_Time = token.ValidTo,
-                Your_Cart_ID = cartId
+
             });
+
+
+
+
         }
 
+        private void HasCart(int id)
+        {
+            var founded = _dbContext.carts.FirstOrDefault(x => x.Id == id);
+            if (founded != null)
+            {
+                return;
+            }
+            else
+            {
+                var cartObj = new Cart
+                {
+                    UserId = id,
+                    Status = "Nothing"
+                };
 
+                _dbContext.carts.Add(cartObj);
+                _dbContext.SaveChanges();
+            }
+
+        }
     }
 }
