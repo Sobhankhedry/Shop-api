@@ -34,9 +34,11 @@ namespace ShopAPI.Controllers
                             productPrice = cartitem.Price,
 
 
-                        }); ;
+                        });
 
             return Ok(Cart);
         }
+
+
     }
 }

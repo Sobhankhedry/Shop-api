@@ -39,6 +39,7 @@ namespace ShopAPI.Controllers
             var getid = Convert.ToInt32(HttpContext.User.FindFirstValue("UserId"));
             var foundedUser = _dbContext.carts.FirstOrDefault(x => x.UserId == getid);
             var cartItem = _dbContext.CartItems.Find(id);
+
             if (cartItem == null)
             {
                 return NotFound();
