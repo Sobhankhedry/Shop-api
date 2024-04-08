@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ShopAPI.Data;
 using ShopAPI.Model;
+using System.Security.Claims;
 
 namespace ShopAPI.Controllers
 {
@@ -40,6 +41,15 @@ namespace ShopAPI.Controllers
             _dbContext.Remove(cartItem);
             _dbContext.SaveChanges();
             return Ok();
+        }
+
+
+        [HttpGet, Authorize]
+        public IActionResult GetUserId()
+        {
+            var getid = HttpContext.User.FindFirstValue("UserId");
+            return Ok(getid);
+
         }
     }
 }

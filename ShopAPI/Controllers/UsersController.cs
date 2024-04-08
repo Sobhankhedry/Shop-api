@@ -72,6 +72,7 @@ namespace ShopAPI.Controllers
                 new Claim(JwtRegisteredClaimNames.Email, user?.Email),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, userEmail.Role),
+                new Claim("UserId",userEmail.Id.ToString())
             };
 
             HasCart(userEmail.Id);
@@ -84,8 +85,9 @@ namespace ShopAPI.Controllers
                 token_type = token.TokenType,
                 creation_Time = token.ValidFrom,
                 expiration_Time = token.ValidTo,
-
+                //your_role = getid
             });
+
 
         }
 
@@ -107,6 +109,8 @@ namespace ShopAPI.Controllers
                 _dbContext.carts.Add(cartObj);
                 _dbContext.SaveChanges();
             }
+
+
 
         }
     }
