@@ -18,7 +18,7 @@ namespace ShopAPI.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult GetCartItem()
+        public IActionResult GetCartItems()
         {
             var getid = Convert.ToInt32(HttpContext.User.FindFirstValue("UserId"));
             var Cart = (from cart in _dbContext.carts

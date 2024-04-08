@@ -36,14 +36,23 @@ namespace ShopAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            var getid = Convert.ToInt32(HttpContext.User.FindFirstValue("UserId"));
+            var foundedUser = _dbContext.carts.FirstOrDefault(x => x.UserId == getid);
             var cartItem = _dbContext.CartItems.Find(id);
             if (cartItem == null)
             {
                 return NotFound();
             }
-            _dbContext.Remove(cartItem);
-            _dbContext.SaveChanges();
-            return Ok();
+            if (cartItem.CartId == foundedUser.Id)
+            {
+                _dbContext.Remove(cartItem);
+                _dbContext.SaveChanges();
+                return Ok();
+            }
+            else
+            {
+                return NotFound("not found this product in your cart");
+            }
         }
 
 
