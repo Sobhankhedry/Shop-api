@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopAPI.Data;
+using System.Security.Claims;
 
 namespace ShopAPI.Controllers
 {
@@ -19,11 +20,11 @@ namespace ShopAPI.Controllers
         [HttpGet]
         public IActionResult GetCartItem()
         {
-
+            var getid = Convert.ToInt32(HttpContext.User.FindFirstValue("UserId"));
             var Cart = (from cart in _dbContext.carts
                         join cartitem in _dbContext.CartItems on cart.Id equals cartitem.CartId
                         join user in _dbContext.Users on cart.UserId equals user.Id
-                        where cartitem.CartId == cart.Id
+                        where cart.UserId == getid
                         select new
                         {
                             userID = user.Id,
