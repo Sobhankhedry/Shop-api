@@ -87,9 +87,6 @@ namespace ShopAPI.Controllers
 
             });
 
-
-
-
         }
 
         private void HasCart(int id)
